@@ -44,8 +44,8 @@ def main():
     model= AVENet(args) 
     device = torch.device("cuda:0" if torch.cuda.is_available() else "cpu")
     model = nn.DataParallel(model)
-    model = model.cuda()
-    checkpoint = torch.load(args.summaries_dir)
+    # model = model.cuda()
+    checkpoint = torch.load(args.summaries_dir, map_location=torch.device('cpu'))
     model_dict = model.state_dict()
     pretrained_dict = checkpoint['model_state_dict']
     model_dict.update(pretrained_dict)
@@ -71,8 +71,8 @@ def main():
     iou = []
     for step, (image, spec, audio,name,im) in enumerate(testdataloader):
         print('%d / %d' % (step,len(testdataloader) - 1))
-        spec = Variable(spec).cuda()
-        image = Variable(image).cuda()
+        # spec = Variable(spec).cuda()
+        # image = Variable(image).cuda()
         heatmap,_,Pos,Neg = model(image.float(),spec.float(),args)
         heatmap_arr =  heatmap.data.cpu().numpy()
 

@@ -30,7 +30,7 @@ class AVENet(nn.Module):
         self.tau = 0.03
         self.trimap = args.tri_map
         self.Neg = args.Neg
-        self.random_threshold = args.random_threshold
+        # self.random_threshold = args.random_threshold
 
         for m in self.modules():
             if isinstance(m, nn.Conv2d):
@@ -43,7 +43,8 @@ class AVENet(nn.Module):
     def forward(self, image, audio,args,mode='val'):
         # Image
         B = image.shape[0]
-        self.mask = ( 1 -100 * torch.eye(B,B)).cuda()
+        # self.mask = ( 1 -100 * torch.eye(B,B)).cuda()
+        self.mask = ( 1 -100 * torch.eye(B,B))
         img = self.imgnet(image)
         img =  nn.functional.normalize(img, dim=1)
 

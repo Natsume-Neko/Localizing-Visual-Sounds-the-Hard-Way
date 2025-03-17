@@ -70,9 +70,11 @@ class ImageConvNet(nn.Module):
 
 
 if __name__ == "__main__":
-    model = ImageConvNet().cuda()
+    model = ImageConvNet()
+    # model = ImageConvNet().cuda()
     print("Model loaded.")
-    image = Variable(torch.rand(2, 3, 224, 224)).cuda()
+    image = Variable(torch.rand(2, 3, 224, 224))
+    # image = Variable(torch.rand(2, 3, 224, 224)).cuda()
     print("Image loaded.")
 
     # Run a feedforward and check shape

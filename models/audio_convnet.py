@@ -69,10 +69,11 @@ class AudioConvNet(nn.Module):
 
 
 if __name__ == "__main__":
-
-    model = AudioConvNet().cuda()
+    model = AudioConvNet()
+    # model = AudioConvNet().cuda()
     print("Model loaded.")
-    image = Variable(torch.rand(2, 1, 257, 200)).cuda()
+    image = Variable(torch.rand(2, 1, 257, 200))
+    # image = Variable(torch.rand(2, 1, 257, 200)).cuda()
     print("Image loaded.")
 
     # Run some sample epochs to see if everything's working
