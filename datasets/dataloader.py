@@ -16,7 +16,7 @@ import scipy.io.wavfile as wav
 from scipy import signal
 import random
 import soundfile as sf
-
+import glob
 
 
 class GetAudioVideoDataset(Dataset):
@@ -36,6 +36,8 @@ class GetAudioVideoDataset(Dataset):
         self.audio_path = args.data_path + 'audio/'
         self.video_path = args.data_path + 'frames/'
 
+        audio_paths = set(glob.glob(self.audio_path + '*.wav'))
+
         self.imgSize = args.image_size 
 
         self.mode = mode
@@ -47,7 +49,8 @@ class GetAudioVideoDataset(Dataset):
         self.video_files = []
    
         for item in data[:]:
-            self.video_files.append(item )
+            if self.audio_path + item[:-3] + 'wav' in audio_paths:
+                self.video_files.append(item )
         print(len(self.video_files))
         self.count = 0
 
